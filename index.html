@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>Document</title>
+ <link rel="stylesheet" type="text/css" href="index.css">
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+ <script src="web3.min.js"></script>
+ <script language="javascript" type="text/javascript" src="abi_message.js"></script>
+</head>
+<body>
+
+ <div class="container">
+
+   <h1>Bureau de vote</h1>
+
+   <h2 id="instructor"></h2>
+
+   <label for="name" class="col-lg-2 control-label">Nouveau membre</label>
+   <input id="name" type="text">
+
+   <button id="button">Ajouter</button>
+
+ </div>
+
+ <script>
+
+  web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+
+  //web3.eth.getAccounts(console.log);
+
+
+  //var CoursesContract = new web3.eth.Contract(messageABI);
+
+  var accounts = [] ;
+web3.eth.getAccounts().then(function(result){
+  //$.merge(accounts,result);
+  result.forEach(function(item){
+    //console.log(item);
+    accounts.push(item);
+  });
+});
+
+
+  console.log(accounts[0]);
+
+//web3.eth.defaultAccount = account0[0];
+
+  var contractInstance = new web3.eth.Contract(messageABI, "0xcdB3c40Ff1B34Be44df49a462F576259EEa3D7a2");
+
+  //console.log(contractInstance);
+  $("#button").click(function(){
+   //console.log($("#name").val());
+   //contractInstance.methods.addCandidate($("#name").val());
+  });
+   //var res = contractInstance.methods.candidates("2");
+  //console.log(res);
+ </script>
+</body>
+</html>

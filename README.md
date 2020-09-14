@@ -17,8 +17,5 @@ npm install -g ganache-cli
 ganache-cli
 ```
 - Aller sur le site web de Remix Ethereum **en HTTP**
-```bash
-npm install web3
-```
 - Compiler le contrat
 - Déployer le contrat avec pour environnement **Web3 Provider** et pour endpoint **http://127.0.0.1:8545**

@@ -16,6 +16,16 @@ using SafeMath for uint256;
         uint voteCount;
     }
     
+       // Model a Resolution
+    struct Resolution {
+        uint256 id;
+        string label;
+        string description;
+        uint forVoteCount;
+        uint neutralVoteCount;
+        uint againstVoteCount;
+    }
+    
     modifier onlyowner { if (msg.sender == owner) _; }
 
     // Store accounts that have voted
@@ -24,6 +34,10 @@ using SafeMath for uint256;
     // Fetch Candidate
     mapping(uint => Candidate) public candidates;
     // Store Candidates Count
+    mapping(uint => Resolution) public resolutions;
+    // Store Resolutions Count
+    uint public resolutionsCount;
+    
     uint public candidatesCount;
 
     // voted event
@@ -33,8 +47,8 @@ using SafeMath for uint256;
         candidatesCount ++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
     }
-
-    function vote (uint _candidateId) public {
+    
+     function voteCandidate (uint _candidateId) public {
         // require that they haven't voted before
         require(!voters[msg.sender]);
 
@@ -49,5 +63,30 @@ using SafeMath for uint256;
 
         // trigger voted event
         emit votedEvent (_candidateId);
+    }
+    
+     // voted resolution event
+    event votedResolutionEvent ( uint indexed _resolutionId);
+    
+    function addResolution (string memory _label, string memory _description) onlyowner private {
+    resolutionsCount ++;
+    resolutions[resolutionsCount] = Resolution(resolutionsCount,_label,_description,0,0,0);
+    }
+
+    function voteResolution(uint _resolutionId) public {
+        // require that they haven't voted before
+        require(!voters[msg.sender]);
+
+        // require a valid resolution
+        require(_resolutionId > 0 && _resolutionId <= resolutionsCount);
+
+        // record that voter has voted
+        voters[msg.sender] = true;
+
+        // update resolution vote Count
+       // resolutions[_resolutionId].voteCount ++;
+
+        // trigger voted event
+        emit votedResolutionEvent (_resolutionId);
     }
 }

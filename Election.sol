@@ -10,10 +10,11 @@ contract Election is Ownable {
 using SafeMath for uint256;
 
     // Model a Candidate
-    struct Candidate {
+    struct Member {
         uint256 id;
         string name;
         uint voteCount;
+        uint memberType;
     }
     
        // Model a Resolution
@@ -25,50 +26,75 @@ using SafeMath for uint256;
         uint neutralVoteCount;
         uint againstVoteCount;
     }
-    
-    modifier onlyowner { if (msg.sender == owner) _; }
 
     // Store accounts that have voted
     mapping(address => bool) public voters;
     // Store Candidates
     // Fetch Candidate
-    mapping(uint => Candidate) public candidates;
+    mapping(uint => Member) public members;
     // Store Candidates Count
     mapping(uint => Resolution) public resolutions;
     // Store Resolutions Count
     uint public resolutionsCount;
-    
-    uint public candidatesCount;
+    uint public membersCount;
+    uint public voteCount;
 
     // voted event
     event votedEvent ( uint indexed _candidateId);
+    
+    // voted event
+    event endOfVote ();
 
-    function addCandidate (string memory _name) onlyowner private {
-        candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+    function addMembers (string memory _name) public {
+        membersCount ++;
+        members[membersCount] = Member(membersCount, _name, 0, 0);
     }
     
      function voteCandidate (uint _candidateId) public {
+        
         // require that they haven't voted before
         require(!voters[msg.sender]);
 
         // require a valid candidate
-        require(_candidateId > 0 && _candidateId <= candidatesCount);
+        require(_candidateId > 0 && _candidateId <= membersCount);
 
         // record that voter has voted
         voters[msg.sender] = true;
 
         // update candidate vote Count
-        candidates[_candidateId].voteCount ++;
-
+        members[_candidateId].voteCount ++;
+        
+        voteCount++;
+        
+        // check for end of vote
+        if (voteCount >= membersCount)
+        {
+            uint indexMax = 0;
+            uint max = 0;
+            
+            for (uint i = 1; i <= membersCount; i++) 
+            {
+                if(members[i].voteCount > max)
+                {
+                    indexMax = i ;
+                }
+            }
+            members[indexMax].memberType = 1;
+            
+            // trigger end of vote event
+            emit endOfVote();
+        }
+        
         // trigger voted event
         emit votedEvent (_candidateId);
     }
     
+
+    
      // voted resolution event
     event votedResolutionEvent ( uint indexed _resolutionId);
     
-    function addResolution (string memory _label, string memory _description) onlyowner private {
+    function addResolution (string memory _label, string memory _description) public {
     resolutionsCount ++;
     resolutions[resolutionsCount] = Resolution(resolutionsCount,_label,_description,0,0,0);
     }

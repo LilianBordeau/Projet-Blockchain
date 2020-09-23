@@ -1,27 +1,41 @@
-body {
+body
+{
  background-color:#F0F0F0;
  padding: 2em;
  font-family: 'Raleway','Source Sans Pro', 'Arial';
 }
-.container {
+
+.modalspe
+{
  width: 50%;
  margin: 0 auto;
+ background-color: lightgray;
+ padding: 25px;
+ display: none;
 }
-label {
- display:block;
- margin-bottom:10px;
+
+#nb_members_connected, #nb_members_attended
+{
+  font-weight: bold;
+  color: darkred;
 }
-input {
- padding:10px;
- width: 50%;
- margin-bottom: 1em;
+
+#connexion
+{
+  display: block;
 }
-button {
- margin: 2em 0;
- padding: 1em 4em;
- display:block;
-}#instructor {
- padding:1em;
- background-color:#fff;
- margin: 1em 0;
+
+h1
+{
+  text-align: center;
+}
+
+input
+{
+ text-align: center;
+}
+
+button
+{
+ width: 100%;
 }

@@ -6,13 +6,50 @@
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
  <title>Document</title>
  <link rel="stylesheet" type="text/css" href="index.css">
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
- <script src="web3.min.js"></script>
- <script language="javascript" type="text/javascript" src="abi_message.js"></script>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
 </head>
 <body>
 
- <div class="container">
+  <div id="connexion" class="modalspe">
+
+    <h1>Accueil</h1>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">📃</span>
+      </div>
+      <input id="contract_address" maxlength="42" type="text" class="form-control" placeholder="0x2E9F97F413Adf75D3b2ad5bAAaFECF89884176f8" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">🔑</span>
+      </div>
+      <input id="publickey" maxlength="42" type="text" class="form-control" placeholder="0x85ADb0f8D629F299E7F926AF885A083d49849B6B" aria-label="PublicKey" aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">👱</span>
+      </div>
+      <input id="username" maxlength="20" type="text" class="form-control" placeholder="John Doe" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+
+    <button id="button_connexion" class="btn btn-primary">Aller en salle d'attente</button>
+
+  </div>
+
+  <div id="waiting_room" class="modalspe">
+
+    <h1>Salle d'attente</h1>
+
+    <h2><span id="nb_members_connected"></span> membre(s) sur <span id="nb_members_attended"></span></h2>
+
+    <button id="button_polling_space" class="btn btn-primary" disabled>Élire les répresentants</button>
+
+  </div>
+
+ <div id="polling_place" class="modalspe">
 
    <h1>Bureau de vote</h1>
 
@@ -21,42 +58,18 @@
    <label for="name" class="col-lg-2 control-label">Nouveau membre</label>
    <input id="name" type="text">
 
-   <button id="button">Ajouter</button>
+   <button id="button">Ajouter un candidat</button>
+   <button id="button_nb_candidats">Nombre de candidats</button>
+   <button id="button_afficher_candidats">Afficher candidat 1</button>
+   <button id="button_print_proprio">Afficher owner contrat</button>
 
  </div>
 
- <script>
-
-  web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
-
-  //web3.eth.getAccounts(console.log);
-
-
-  //var CoursesContract = new web3.eth.Contract(messageABI);
-
-  var accounts = [] ;
-web3.eth.getAccounts().then(function(result){
-  //$.merge(accounts,result);
-  result.forEach(function(item){
-    //console.log(item);
-    accounts.push(item);
-  });
-});
-
-
-  console.log(accounts[0]);
-
-//web3.eth.defaultAccount = account0[0];
-
-  var contractInstance = new web3.eth.Contract(messageABI, "0xcdB3c40Ff1B34Be44df49a462F576259EEa3D7a2");
-
-  //console.log(contractInstance);
-  $("#button").click(function(){
-   //console.log($("#name").val());
-   //contractInstance.methods.addCandidate($("#name").val());
-  });
-   //var res = contractInstance.methods.candidates("2");
-  //console.log(res);
- </script>
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ <script src="web3.min.js"></script>
+ <script language="javascript" type="text/javascript" src="abi_message.js"></script>
+ <script src="web3js_script.js"></script>
 </body>
 </html>

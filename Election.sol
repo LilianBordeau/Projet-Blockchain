@@ -38,9 +38,26 @@ using SafeMath for uint256;
     mapping(uint => Resolution) public resolutions;
     // Store Resolutions Count
     uint public resolutionsCount;
+    string[] public resolutionsList;
     uint public membersCount;
     uint public voteCount;
     string[] public memberList;
+    uint[] public voteScoreList;
+    uint[] public sortedVoteScoreList;
+    
+    function sort_array(uint[] memory arr) public pure returns (uint[] memory){
+        uint l = arr.length;
+        for(uint i = 0; i < l; i++) {
+            for(uint j = i+1; j < l ;j++) {
+                if(arr[i] > arr[j]) {
+                    uint temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr;
+    }
 
     // voted event
     event votedEvent ( uint indexed _candidateId);
@@ -78,17 +95,27 @@ using SafeMath for uint256;
         // check for end of vote
         if (voteCount >= membersCount)
         {
-            uint indexMax = 0;
-            uint max = 0;
+            for (uint i = 1; i <= membersCount; i++) 
+                {
+                    voteScoreList.push(members[i].voteCount);
+                }
+            sortedVoteScoreList = sort_array(voteScoreList);
             
             for (uint i = 1; i <= membersCount; i++) 
             {
-                if(members[i].voteCount > max)
+                if(members[i].voteCount == sortedVoteScoreList[0])
                 {
-                    indexMax = i ;
+                    members[i].memberType = 1; 
+                }
+                if(members[i].voteCount == sortedVoteScoreList[1])
+                {
+                    members[i].memberType = 2; 
+                }
+                 if(members[i].voteCount == sortedVoteScoreList[2])
+                {
+                    members[i].memberType = 3; 
                 }
             }
-            members[indexMax].memberType = 1;
             
             // trigger end of vote event
             emit endOfVote();
@@ -104,10 +131,15 @@ using SafeMath for uint256;
     event votedResolutionEvent ( uint indexed _resolutionId);
     
     function addResolution (string memory _label, string memory _description, uint  _memberType) public {
-    require(_memberType ==1);
+    require(_memberType == 1);
     resolutionsCount ++;
     resolutions[resolutionsCount] = Resolution(resolutionsCount,_label,_description,0,0,0);
+    resolutionsList.push(_label);
     }
+    
+    function getResolutions() public view returns (string[] memory) {
+    return resolutionsList;
+  }
     
 
     function voteResolution(uint _resolutionId) public {

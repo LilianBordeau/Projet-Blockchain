@@ -1,4 +1,6 @@
 pragma solidity ^0.6.12;
+pragma experimental ABIEncoderV2;
+
 
 // SPDX-License-Identifier: GPL-3.0
 
@@ -38,6 +40,7 @@ using SafeMath for uint256;
     uint public resolutionsCount;
     uint public membersCount;
     uint public voteCount;
+    string[] public memberList;
 
     // voted event
     event votedEvent ( uint indexed _candidateId);
@@ -48,8 +51,14 @@ using SafeMath for uint256;
     function addMembers (string memory _name) public {
         membersCount ++;
         members[membersCount] = Member(membersCount, _name, 0, 0);
+        memberList.push(_name);
     }
     
+    function getMembersList () public view returns (string[] memory) {
+    return memberList;
+  }
+    
+ 
      function voteCandidate (uint _candidateId) public {
         
         // require that they haven't voted before
@@ -94,10 +103,12 @@ using SafeMath for uint256;
      // voted resolution event
     event votedResolutionEvent ( uint indexed _resolutionId);
     
-    function addResolution (string memory _label, string memory _description) public {
+    function addResolution (string memory _label, string memory _description, uint  _memberType) public {
+    require(_memberType ==1);
     resolutionsCount ++;
     resolutions[resolutionsCount] = Resolution(resolutionsCount,_label,_description,0,0,0);
     }
+    
 
     function voteResolution(uint _resolutionId) public {
         // require that they haven't voted before

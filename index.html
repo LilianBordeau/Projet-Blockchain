@@ -4,7 +4,7 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <title>Document</title>
+ <title>AG par Blockchain</title>
  <link rel="stylesheet" type="text/css" href="index.css">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
 </head>
@@ -43,25 +43,66 @@
 
     <h1>Salle d'attente</h1>
 
-    <h2><span id="nb_members_connected"></span> membre(s) sur <span id="nb_members_attended"></span></h2>
+    <h2><span id="nb_members_connected"></span> membre(s) sur <span id="nb_members_attended"></span> attendu(s).</h2>
 
-    <button id="button_polling_space" class="btn btn-primary" disabled>Élire les répresentants</button>
+    <button id="button_elect_representants" class="btn btn-primary" disabled>Élire le président</button>
 
   </div>
 
- <div id="polling_place" class="modalspe">
+  <div id="elect_representant" class="modalspe">
 
-   <h1>Bureau de vote</h1>
+    <h2>Élection du président</h2>
 
-   <h2 id="instructor"></h2>
+    <button id="button_polling_space" class="btn btn-primary" disabled>Confirmer et voter pour les résolutions</button>
 
-   <label for="name" class="col-lg-2 control-label">Nouveau membre</label>
-   <input id="name" type="text">
+  </div>
 
-   <button id="button">Ajouter un candidat</button>
-   <button id="button_nb_candidats">Nombre de candidats</button>
-   <button id="button_afficher_candidats">Afficher candidat 1</button>
-   <button id="button_print_proprio">Afficher owner contrat</button>
+  <div id="add_resolution" class="modalspe">
+
+    <h1>Ajout des résolutions</h1>
+    <h2><span id="resolutions_count"></span> résolution(s) sur <span id="resolutions_attended"></span> attendue(s).</h2>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">📃</span>
+      </div>
+      <input id="resolution_title" maxlength="42" type="text" class="form-control" placeholder="Titre de la résolution" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+
+    <div class="form-group">
+      <label for="resolution_desc">Description</label>
+      <textarea class="form-control" id="resolution_desc" rows="3"></textarea>
+    </div>
+
+    <button id="button_add_resolution" class="btn btn-primary">Ajouter la résolution</button>
+    </hr>
+    <button id="button_vote_resolution" class="btn btn-success">Passer au vote</button>
+
+  </div>
+
+ <div id="vote_resolution" class="modalspe">
+
+   <h1>Vote des résolutions</h1>
+
+   <div class='input-group mb-3'>
+     <input id='username' type='text' class='form-control' value='Titre de la résolution' aria-label='Username' aria-describedby='basic-addon1' disabled>
+     <div class="input-group-append">
+       <button class="btn btn-outline-primary" type="button">POUR</button>
+       <button class="btn btn-outline-primary" type="button">NEUTRE</button>
+       <button class="btn btn-outline-primary" type="button">CONTRE</button>
+     </div>
+   </div>
+
+   <div class='input-group mb-3'>
+     <input id='username' type='text' class='form-control' value='Titre de la résolution' aria-label='Username' aria-describedby='basic-addon1' disabled>
+     <div class="input-group-append">
+       <button class="btn btn-outline-primary" type="button">POUR</button>
+       <button class="btn btn-outline-primary" type="button">NEUTRE</button>
+       <button class="btn btn-outline-primary" type="button">CONTRE</button>
+     </div>
+   </div>
+
+   <button id="button_vote_resolution2" class="btn btn-success">Voter pour les résolutions</button>
 
  </div>
 

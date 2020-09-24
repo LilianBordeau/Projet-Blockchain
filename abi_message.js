@@ -29,9 +29,9 @@ var messageABI = [
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "uint256",
-				"name": "_candidateId",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "candidate_addr",
+				"type": "address"
 			}
 		],
 		"name": "votedEvent",
@@ -54,7 +54,7 @@ var messageABI = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_name",
+				"name": "name",
 				"type": "string"
 			}
 		],
@@ -74,11 +74,6 @@ var messageABI = [
 				"internalType": "string",
 				"name": "_description",
 				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_memberType",
-				"type": "uint256"
 			}
 		],
 		"name": "addResolution",
@@ -87,8 +82,60 @@ var messageABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "candidate_addr",
+				"type": "address"
+			}
+		],
+		"name": "electPresident",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_resolutionId",
+				"type": "uint256"
+			}
+		],
+		"name": "voteResolution",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "attendedMembers",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "attendedResolutions",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -114,12 +161,34 @@ var messageABI = [
 	},
 	{
 		"inputs": [],
-		"name": "getMembersList",
+		"name": "getMembers",
 		"outputs": [
 			{
-				"internalType": "string[]",
+				"components": [
+					{
+						"internalType": "address",
+						"name": "public_key",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "voteCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isPresident",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct Election.Member[]",
 				"name": "",
-				"type": "string[]"
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -141,17 +210,17 @@ var messageABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "addrs",
+				"type": "address"
 			}
 		],
-		"name": "memberList",
+		"name": "isMemberPresident",
 		"outputs": [
 			{
-				"internalType": "string",
+				"internalType": "bool",
 				"name": "",
-				"type": "string"
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -160,17 +229,17 @@ var messageABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "address",
 				"name": "",
-				"type": "uint256"
+				"type": "address"
 			}
 		],
 		"name": "members",
 		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "public_key",
+				"type": "address"
 			},
 			{
 				"internalType": "string",
@@ -183,9 +252,9 @@ var messageABI = [
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint256",
-				"name": "memberType",
-				"type": "uint256"
+				"internalType": "bool",
+				"name": "isPresident",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -207,6 +276,25 @@ var messageABI = [
 	{
 		"inputs": [],
 		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "registered_address",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -296,25 +384,6 @@ var messageABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256[]",
-				"name": "arr",
-				"type": "uint256[]"
-			}
-		],
-		"name": "sort_array",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
@@ -332,29 +401,16 @@ var messageABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+		"inputs": [],
+		"name": "state_election",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "_candidateId",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "voteCandidate",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -373,14 +429,20 @@ var messageABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_resolutionId",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
-		"name": "voteResolution",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "voters",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -410,7 +472,7 @@ var messageABI = [
 				"type": "address"
 			}
 		],
-		"name": "voters",
+		"name": "whitelist",
 		"outputs": [
 			{
 				"internalType": "bool",

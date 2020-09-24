@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>AG par Blockchain</title>
+ <link rel="stylesheet" type="text/css" href="index.css">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+</head>
+<body>
+
+  <button id="button_test" class="btn btn-success">Tester la fonction</button>
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <script src="web3.min.js"></script>
+   <script language="javascript" type="text/javascript" src="abi_message.js"></script>
+   <script>
+
+     var web3     = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+
+     web3.eth.defaultAccount = "0x3eaAa09C5Ce9194f8e02Fc8Ac5220f8d26a47F58";
+
+     from_params = {from:web3.eth.defaultAccount, gas:3000000};
+     contract = new web3.eth.Contract(messageABI, "0x2C30928591DF5c7a4FEC86977B187280154FB9b3");
+
+     contract.methods.addResolution("titreTest", "descriptionTest").call(from_params).then(function(receipt) {
+      console.log(receipt)
+     });
+
+     $("#button_test").click(function(){
+
+        alert('javascript enabled');
+     });
+   </script>
+  </body>
+</html>

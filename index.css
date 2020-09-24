@@ -14,7 +14,20 @@ body
  display: none;
 }
 
-#nb_members_connected, #nb_members_attended
+.input-group-prepend
+{
+  width:20%;
+  text-align: center;
+}
+
+.input-group-text
+{
+  width:100%;
+  text-align: center;
+}
+
+
+#nb_members_connected, #nb_members_attended, #resolutions_count, #resolutions_attended
 {
   font-weight: bold;
   color: darkred;
@@ -25,7 +38,7 @@ body
   display: block;
 }
 
-h1
+h1, h2
 {
   text-align: center;
 }

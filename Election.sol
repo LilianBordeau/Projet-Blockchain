@@ -18,7 +18,7 @@ using SafeMath for uint256;
         uint voteCount;
         uint memberType;
     }
-    
+
        // Model a Resolution
     struct Resolution {
         uint256 id;
@@ -44,7 +44,7 @@ using SafeMath for uint256;
     string[] public memberList;
     uint[] public voteScoreList;
     uint[] public sortedVoteScoreList;
-    
+
     function sort_array(uint[] memory arr) public pure returns (uint[] memory){
         uint l = arr.length;
         for(uint i = 0; i < l; i++) {
@@ -61,7 +61,7 @@ using SafeMath for uint256;
 
     // voted event
     event votedEvent ( uint indexed _candidateId);
-    
+
     // voted event
     event endOfVote ();
 
@@ -70,14 +70,14 @@ using SafeMath for uint256;
         members[membersCount] = Member(membersCount, _name, 0, 0);
         memberList.push(_name);
     }
-    
+
     function getMembersList () public view returns (string[] memory) {
     return memberList;
   }
-    
- 
+
+
      function voteCandidate (uint _candidateId) public {
-        
+
         // require that they haven't voted before
         require(!voters[msg.sender]);
 
@@ -89,58 +89,58 @@ using SafeMath for uint256;
 
         // update candidate vote Count
         members[_candidateId].voteCount ++;
-        
+
         voteCount++;
-        
+
         // check for end of vote
         if (voteCount >= membersCount)
         {
-            for (uint i = 1; i <= membersCount; i++) 
+            for (uint i = 1; i <= membersCount; i++)
                 {
                     voteScoreList.push(members[i].voteCount);
                 }
             sortedVoteScoreList = sort_array(voteScoreList);
-            
-            for (uint i = 1; i <= membersCount; i++) 
+
+            for (uint i = 1; i <= membersCount; i++)
             {
                 if(members[i].voteCount == sortedVoteScoreList[0])
                 {
-                    members[i].memberType = 1; 
+                    members[i].memberType = 1;
                 }
                 if(members[i].voteCount == sortedVoteScoreList[1])
                 {
-                    members[i].memberType = 2; 
+                    members[i].memberType = 2;
                 }
                  if(members[i].voteCount == sortedVoteScoreList[2])
                 {
-                    members[i].memberType = 3; 
+                    members[i].memberType = 3;
                 }
             }
-            
+
             // trigger end of vote event
             emit endOfVote();
         }
-        
+
         // trigger voted event
         emit votedEvent (_candidateId);
     }
-    
 
-    
+
+
      // voted resolution event
     event votedResolutionEvent ( uint indexed _resolutionId);
-    
+
     function addResolution (string memory _label, string memory _description, uint  _memberType) public {
     require(_memberType == 1);
     resolutionsCount ++;
     resolutions[resolutionsCount] = Resolution(resolutionsCount,_label,_description,0,0,0);
     resolutionsList.push(_label);
     }
-    
+
     function getResolutions() public view returns (string[] memory) {
     return resolutionsList;
   }
-    
+
 
     function voteResolution(uint _resolutionId) public {
         // require that they haven't voted before

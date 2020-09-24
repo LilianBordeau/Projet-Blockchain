@@ -210,7 +210,7 @@ $("#button_polling_space").click(function(){
                  <input id='username' type='text' class='form-control' value='`+value[1]+`' aria-label='Username' aria-describedby='basic-addon1' disabled>
                  <div class="input-group-append">
                    <button class="btn btn-outline-success" type="button">POUR</button>
-                   <button class="btn btn-outline-secondary" type="button">NEUTRE</button>
+                   <button class="btn btn-secondary" type="button">NEUTRE</button>
                    <button class="btn btn-outline-danger" type="button">CONTRE</button>
                  </div>
                </div>`;
@@ -258,7 +258,7 @@ $("#button_vote_resolution").click(function(){
                            <input id='username' type='text' class='form-control' value='`+value[1]+`' aria-label='Username' aria-describedby='basic-addon1' disabled>
                            <div class="input-group-append">
                              <button class="btn btn-outline-success" type="button">POUR</button>
-                             <button class="btn btn-outline-secondary" type="button">NEUTRE</button>
+                             <button class="btn btn-secondary" type="button">NEUTRE</button>
                              <button class="btn btn-outline-danger" type="button">CONTRE</button>
                            </div>
                          </div>`;

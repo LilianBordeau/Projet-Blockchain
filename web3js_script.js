@@ -9,6 +9,8 @@ var nb_attended_members;
 var from_params;
 var owner_address;
 
+var vote = [1, 1, 1, 1];
+
 /*
 web3.eth.getAccounts().then(function(result){
   web3.eth.defaultAccount = result[0];
@@ -207,12 +209,12 @@ $("#button_polling_space").click(function(){
             var member_view = `   <div class='input-group mb-3'>
                  <input id='username' type='text' class='form-control' value='`+value[1]+`' aria-label='Username' aria-describedby='basic-addon1' disabled>
                  <div class="input-group-append">
-                   <button class="btn btn-outline-primary" type="button">POUR</button>
-                   <button class="btn btn-outline-primary" type="button">NEUTRE</button>
-                   <button class="btn btn-outline-primary" type="button">CONTRE</button>
+                   <button class="btn btn-outline-success" type="button">POUR</button>
+                   <button class="btn btn-outline-secondary" type="button">NEUTRE</button>
+                   <button class="btn btn-outline-danger" type="button">CONTRE</button>
                  </div>
                </div>`;
-            $(member_view).insertBefore("#button_vote_resolution2");
+            $(member_view).insertBefore("#button_voir_resultat");
           });
         });
 
@@ -260,7 +262,7 @@ $("#button_vote_resolution").click(function(){
                              <button class="btn btn-outline-danger" type="button">CONTRE</button>
                            </div>
                          </div>`;
-      $(member_view).insertBefore("#button_vote_resolution2");
+      $(member_view).insertBefore("#button_voir_resultat");
     });
   });
 
@@ -283,11 +285,8 @@ $("#button_add_resolution").click(function(){
 
 });
 
-var vote = [1, 1, 1, 1];
 
 $("#vote_resolution .input-group-append").on('click', 'button', function(){
-
-  alert('clic')
 
   clicked_index = $("#vote_resolution .input-group-append button").index(this);
 
@@ -305,6 +304,35 @@ $("#vote_resolution .input-group-append").on('click', 'button', function(){
 
    vote[clicked_line] = clicked_bttn;
    console.log(vote);
+});
+
+$("#button_voir_resultat").click(function(){
+
+
+
+  contract.methods.voteResolution(vote).send(from_params).then(function(receipt){
+      console.log(receipt);
+
+        contract.methods.getResolutions().call(from_params).then(function(result) {
+         //console.log(result);
+
+         $.each(result, function( index, value ) {
+            var member_view = `<div class='input-group mb-3'>
+                                 <input id='username' type='text' class='form-control' value='`+value[1]+`' aria-label='Username' aria-describedby='basic-addon1' disabled>
+                                 <div class="input-group-append">
+                                   <button class="btn btn-outline-success" type="button">`+value[3]+`</button>
+                                   <button class="btn btn-outline-secondary" type="button">`+value[4]+`</button>
+                                   <button class="btn btn-outline-danger" type="button">`+value[5]+`</button>
+                                 </div>
+                               </div>`;
+            $(member_view).insertAfter("#top_resu_reso");
+          });
+        });
+
+          $("#vote_resolution").hide();
+          $("#res_resolution").show();
+  });
+
 });
 
 /*

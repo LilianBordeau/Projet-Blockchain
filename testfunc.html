@@ -22,12 +22,15 @@
      var web3     = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
 
 
-     web3.eth.defaultAccount = "0x3666A15d82eed01720f59E6285B7FefC6ac01051";
+     web3.eth.defaultAccount = "0x4d26f30197193c24EC0Fe2D26cF814d9F3473B99";
 
      from_params = {from:web3.eth.defaultAccount, gas:3000000};
-     contract = new web3.eth.Contract(messageABI, "0x94CF8C45206D95acf04079DD1f5BB04818dEBd21");
+     contract = new web3.eth.Contract(messageABI, "0xB757A82c96c45E19c4242f88Ef06eF2CD07abE3C");
 
-     contract.methods.addMember("Test4").send(from_params).then(function(receipt){
+
+     var vote = [1, 1, 1, 1];
+
+     contract.methods.voteResolution(vote).send(from_params).then(function(receipt){
          console.log(receipt);
      });
 

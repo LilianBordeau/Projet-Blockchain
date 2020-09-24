@@ -82,45 +82,6 @@ var messageABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "candidate_addr",
-				"type": "address"
-			}
-		],
-		"name": "electPresident",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_resolutionId",
-				"type": "uint256"
-			}
-		],
-		"name": "voteResolution",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "attendedMembers",
 		"outputs": [
@@ -144,6 +105,19 @@ var messageABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "candidate_addr",
+				"type": "address"
+			}
+		],
+		"name": "electPresident",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -199,9 +173,41 @@ var messageABI = [
 		"name": "getResolutions",
 		"outputs": [
 			{
-				"internalType": "string[]",
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "label",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "forVoteCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "neutralVoteCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "againstVoteCount",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Election.Resolution[]",
 				"name": "",
-				"type": "string[]"
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -373,9 +379,34 @@ var messageABI = [
 		"name": "resolutionsList",
 		"outputs": [
 			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
 				"internalType": "string",
-				"name": "",
+				"name": "label",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "forVoteCount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "neutralVoteCount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "againstVoteCount",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -414,8 +445,53 @@ var messageABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "voteCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "vote",
+				"type": "uint256[]"
+			}
+		],
+		"name": "voteResolution",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "voteScoreList",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -440,25 +516,6 @@ var messageABI = [
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "voteScoreList",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",

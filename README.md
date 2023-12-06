@@ -1,6 +1,6 @@
 # Projet Blockchain
 
-##  Sujet choisi : LE VOTE ELECTRONIQUE EN ASSEMBLE GENERALE
+##  Sujet choisi : Le vote électronique en assemblée générale
 
 ### Installation 
 
